@@ -5,6 +5,9 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Customer\CatalogController;
+use App\Http\Controllers\Customer\CartController;
+use App\Http\Controllers\Customer\OrderController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -43,6 +46,24 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 
     // Pengelolaan Menu (PBI-03)
     Route::resource('menus', MenuController::class)->except(['show']);
+});
+
+// ==========================================
+// ROUTE PELANGGAN (Sprint 1: PBI-6, PBI-7, PBI-11)
+// ==========================================
+Route::middleware(['auth'])->group(function () {
+    // PBI-6: Katalog Menu & Pencarian/Filter
+    Route::get('/catalog', [App\Http\Controllers\Customer\CatalogController::class, 'index'])->name('catalog.index');
+    
+    // PBI-7: Keranjang Belanja (Cart)
+    Route::get('/cart', [App\Http\Controllers\Customer\CartController::class, 'index'])->name('cart.index');
+    Route::post('/cart/add', [App\Http\Controllers\Customer\CartController::class, 'store'])->name('cart.store');
+    Route::patch('/cart/update/{id}', [App\Http\Controllers\Customer\CartController::class, 'update'])->name('cart.update');
+    Route::delete('/cart/remove/{id}', [App\Http\Controllers\Customer\CartController::class, 'destroy'])->name('cart.destroy');
+
+    // PBI-11: Tracking / Pantau Status Pesanan
+    Route::get('/orders', [App\Http\Controllers\Customer\OrderController::class, 'index'])->name('orders.index');
+    Route::get('/orders/{id}', [App\Http\Controllers\Customer\OrderController::class, 'show'])->name('orders.show');
 });
 
 require __DIR__.'/auth.php';
