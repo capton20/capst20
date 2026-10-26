@@ -60,6 +60,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/cart/add', [App\Http\Controllers\Customer\CartController::class, 'store'])->name('cart.store');
     Route::patch('/cart/update/{id}', [App\Http\Controllers\Customer\CartController::class, 'update'])->name('cart.update');
     Route::delete('/cart/remove/{id}', [App\Http\Controllers\Customer\CartController::class, 'destroy'])->name('cart.destroy');
+    Route::post('/cart/checkout', [App\Http\Controllers\Customer\CartController::class, 'checkout'])->name('cart.checkout');
 
     // PBI-11: Tracking / Pantau Status Pesanan
     Route::get('/orders', [App\Http\Controllers\Customer\OrderController::class, 'index'])->name('orders.index');

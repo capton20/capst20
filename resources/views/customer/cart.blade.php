@@ -100,9 +100,14 @@
                     <a href="{{ route('catalog.index') }}" class="bg-gray-600 hover:bg-gray-700 text-white font-semibold px-5 py-2.5 rounded-xl shadow transition text-sm">
                         Kembali Belanja
                     </a>
-                    <button class="bg-amber-600 hover:bg-amber-700 text-white font-semibold px-6 py-2.5 rounded-xl shadow transition text-sm">
-                        Lanjut ke Checkout →
-                    </button>
+                    
+                    <!-- Form Checkout -->
+                    <form action="{{ route('cart.checkout') }}" method="POST" class="inline">
+                        @csrf
+                        <button type="submit" class="bg-amber-600 hover:bg-amber-700 text-white font-semibold px-6 py-2.5 rounded-xl shadow transition text-sm">
+                            Lanjut ke Checkout →
+                        </button>
+                    </form>
                 </div>
             </div>
 

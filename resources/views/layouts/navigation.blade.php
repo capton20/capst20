@@ -5,7 +5,7 @@
             <div class="flex">
                 <!-- Logo & Brand -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ Auth::user()->isAdmin() ? route('admin.dashboard') : route('dashboard') }}" class="flex items-center space-x-2.5 group">
+                    <a href="{{ Auth::user()->isAdmin() ? route('admin.dashboard') : (Auth::user()->role === 'kasir' ? route('dashboard') : route('orders.index')) }}" class="flex items-center space-x-2.5 group">
                         <div class="w-9 h-9 rounded-lg bg-coffee-800 flex items-center justify-center text-amber-200 shadow-sm group-hover:bg-coffee-900 transition">
                             <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
                                 <path d="M2,21H20V19H2M20,8H18V5H20M20,3H4V13A4,4 0 0,0 8,17H14A4,4 0 0,0 18,13V10H20A2,2 0 0,0 22,8V5C22,3.89 21.1,3 20,3Z"/>
@@ -33,17 +33,23 @@
                         <x-nav-link :href="route('admin.menus.index')" :active="request()->routeIs('admin.menus.*')">
                             {{ __('Menu Makanan & Minuman') }}
                         </x-nav-link>
-                    @else
+                    @elseif (Auth::user()->role === 'kasir')
                         <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                             {{ __('Dashboard Kasir') }}
                         </x-nav-link>
+                    @else
+                        <!-- Menu khusus Customer -->
+                        <x-nav-link :href="route('orders.index')" :active="request()->routeIs('orders.*')">
+                            {{ __('Lacak Pesanan') }}
+                        </x-nav-link>
+                        <!-- Tambahkan link katalog atau menu lain jika ada -->
                     @endif
                 </div>
             </div>
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6 space-x-3">
-                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold {{ Auth::user()->isAdmin() ? 'bg-amber-100 text-amber-900 border border-amber-300' : 'bg-stone-100 text-stone-800 border border-stone-300' }}">
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold {{ Auth::user()->isAdmin() ? 'bg-amber-100 text-amber-900 border border-amber-300' : (Auth::user()->role === 'kasir' ? 'bg-blue-100 text-blue-900 border border-blue-300' : 'bg-green-100 text-green-900 border border-green-300') }}">
                     {{ ucfirst(Auth::user()->role) }}
                 </span>
 
@@ -71,7 +77,7 @@
 
                             <x-dropdown-link :href="route('logout')"
                                     onclick="event.preventDefault();
-                                                this.closest('form').submit();"
+                                            this.closest('form').submit();"
                                     class="text-rose-600 hover:text-rose-700 hover:bg-rose-50">
                                 {{ __('Keluar (Log Out)') }}
                             </x-dropdown-link>
@@ -108,9 +114,13 @@
                 <x-responsive-nav-link :href="route('admin.menus.index')" :active="request()->routeIs('admin.menus.*')">
                     {{ __('Menu Makanan & Minuman') }}
                 </x-responsive-nav-link>
-            @else
+            @elseif (Auth::user()->role === 'kasir')
                 <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                     {{ __('Dashboard Kasir') }}
+                </x-responsive-nav-link>
+            @else
+                <x-responsive-nav-link :href="route('orders.index')" :active="request()->routeIs('orders.*')">
+                    {{ __('Lacak Pesanan') }}
                 </x-responsive-nav-link>
             @endif
         </div>
@@ -122,7 +132,7 @@
                     <div class="font-medium text-base text-stone-900">{{ Auth::user()->name }}</div>
                     <div class="font-medium text-sm text-stone-500">{{ Auth::user()->email }}</div>
                 </div>
-                <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold {{ Auth::user()->isAdmin() ? 'bg-amber-100 text-amber-900' : 'bg-stone-200 text-stone-800' }}">
+                <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold {{ Auth::user()->isAdmin() ? 'bg-amber-100 text-amber-900' : (Auth::user()->role === 'kasir' ? 'bg-blue-100 text-blue-900' : 'bg-green-100 text-green-900') }}">
                     {{ ucfirst(Auth::user()->role) }}
                 </span>
             </div>
@@ -138,7 +148,7 @@
 
                     <x-responsive-nav-link :href="route('logout')"
                             onclick="event.preventDefault();
-                                        this.closest('form').submit();"
+                                    this.closest('form').submit();"
                             class="text-rose-600">
                         {{ __('Keluar (Log Out)') }}
                     </x-responsive-nav-link>

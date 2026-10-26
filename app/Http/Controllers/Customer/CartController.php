@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Customer;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Menu;
+use App\Models\Order;
+use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
@@ -77,4 +79,34 @@ class CartController extends Controller
 
         return redirect()->route('cart.index')->with('success', 'Menu berhasil dihapus dari keranjang!');
     }
+
+    public function checkout(Request $request)
+    {
+        // 1. Ambil data keranjang dari session (atau database sesuai logika cart kamu)
+        $cart = session()->get('cart', []);
+
+        if (empty($cart)) {
+            return redirect()->back()->with('error', 'Keranjang belanja Anda kosong!');
+        }
+
+        // 2. Hitung total harga
+        $totalPrice = 0;
+        foreach ($cart as $item) {
+            $totalPrice += $item['price'] * $item['quantity'];
+        }
+
+        // 3. Simpan data ke tabel orders
+        $order = Order::create([
+            'user_id' => Auth::id() ?? 1, // Menggunakan ID user yang login
+            'total_price' => $totalPrice,
+            'status' => 'pending',
+        ]);
+
+        // 4. Bersihkan keranjang setelah checkout
+        session()->forget('cart');
+
+        // 5. Arahkan otomatis ke halaman Order Tracking (/orders)
+        return redirect()->route('orders.index')->with('success', 'Pesanan berhasil dibuat!');
+        }
+
 }
