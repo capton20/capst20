@@ -115,7 +115,7 @@
                     Lihat Katalog Menu
                 </a>
             </div>
-        @endif
+        @endif=
 
     </div>
 </body>
