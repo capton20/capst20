@@ -16,7 +16,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    $menus = Menu::with('category')->where('is_available', true)->latest()->take(6)->get();
+    $menus = Menu::with('category')->withCount('likedBy as likes_count')->where('is_available', true)->latest()->take(6)->get();
 
     return view('welcome', compact('menus'));
 });
@@ -55,6 +55,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 
     // Pengelolaan Menu (PBI-03)
     Route::resource('menus', MenuController::class)->except(['show']);
+    Route::post('/menus/{menu}/like', [MenuController::class, 'toggleLike'])->name('menus.like'); // PBI-12
 
     // Pengelolaan Meja (PBI-05)
     Route::resource('tables', DiningTableController::class)->except(['show']);

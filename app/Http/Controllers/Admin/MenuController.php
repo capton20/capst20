@@ -17,7 +17,9 @@ class MenuController extends Controller
      */
     public function index(Request $request): View
     {
-        $query = Menu::with('category');
+        $query = Menu::with('category')
+            ->withCount('likedBy as likes_count')
+            ->withExists(['likedBy as liked_by_me' => fn ($q) => $q->where('users.id', $request->user()->id)]);
 
         if ($request->filled('search')) {
             $search = $request->string('search');
@@ -117,6 +119,17 @@ class MenuController extends Controller
         ]);
 
         return redirect()->route('admin.menus.index')->with('success', 'Menu makanan/minuman berhasil diperbarui.');
+    }
+
+    /**
+     * Beri like / batalkan like pada menu (PBI-12).
+     */
+    public function toggleLike(Request $request, Menu $menu): RedirectResponse
+    {
+        $result = $menu->likedBy()->toggle($request->user()->id);
+        $message = $result['attached'] ? "Anda menyukai {$menu->name}." : "Like pada {$menu->name} dibatalkan.";
+
+        return back()->with('success', $message);
     }
 
     /**
