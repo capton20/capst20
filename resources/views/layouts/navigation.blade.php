@@ -1,25 +1,25 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-stone-200 shadow-sm sticky top-0 z-30">
+<nav x-data="{ open: false }" class="bg-cream/95 backdrop-blur border-b border-stone-200/70 sticky top-0 z-30">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Logo & Brand -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ Auth::user()->isAdmin() ? route('admin.dashboard') : (Auth::user()->role === 'kasir' ? route('dashboard') : route('orders.index')) }}" class="flex items-center space-x-2.5 group">
-                        <div class="w-9 h-9 rounded-lg bg-coffee-800 flex items-center justify-center text-amber-200 shadow-sm group-hover:bg-coffee-900 transition">
+                    <a href="{{ Auth::user()->isAdmin() ? route('admin.dashboard') : (Auth::user()->role === 'kasir' ? route('kasir.orders.index') : route('catalog.index')) }}" class="flex items-center space-x-2.5 group">
+                        <div class="w-9 h-9 rounded-lg bg-espresso flex items-center justify-center text-amber-100 shadow-sm group-hover:bg-black transition">
                             <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
                                 <path d="M2,21H20V19H2M20,8H18V5H20M20,3H4V13A4,4 0 0,0 8,17H14A4,4 0 0,0 18,13V10H20A2,2 0 0,0 22,8V5C22,3.89 21.1,3 20,3Z"/>
                             </svg>
                         </div>
                         <div class="flex flex-col">
-                            <span class="font-bold text-lg text-stone-900 leading-none tracking-tight">JOGO <span class="text-amber-800">KOPI</span></span>
+                            <span class="font-bold text-lg text-espresso leading-none tracking-tight">JOGO KOPI</span>
                             <span class="text-[10px] text-stone-500 font-medium tracking-wider uppercase">Self-Ordering System</span>
                         </div>
                     </a>
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-6 sm:-my-px sm:ms-8 sm:flex">
+                <div class="hidden lg:flex items-center gap-1 ms-8 my-3 p-1 rounded-xl bg-stone-200/60">
                     @if (Auth::user()->isAdmin())
                         <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
                             {{ __('Dashboard') }}
@@ -33,9 +33,18 @@
                         <x-nav-link :href="route('admin.menus.index')" :active="request()->routeIs('admin.menus.*')">
                             {{ __('Menu Makanan & Minuman') }}
                         </x-nav-link>
+                        <x-nav-link :href="route('admin.tables.index')" :active="request()->routeIs('admin.tables.*')">
+                            {{ __('Kelola Meja') }}
+                        </x-nav-link>
                     @elseif (Auth::user()->role === 'kasir')
-                        <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                            {{ __('Dashboard Kasir') }}
+                        <x-nav-link :href="route('kasir.orders.index')" :active="request()->routeIs('kasir.orders.index')">
+                            {{ __('Pesanan Masuk') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('kasir.orders.board')" :active="request()->routeIs('kasir.orders.board')">
+                            {{ __('Status Pesanan') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('kasir.menus.index')" :active="request()->routeIs('kasir.menus.*')">
+                            {{ __('Ketersediaan Menu') }}
                         </x-nav-link>
                     @else
                         <!-- Menu khusus Customer -->
@@ -87,7 +96,7 @@
             </div>
 
             <!-- Hamburger -->
-            <div class="-me-2 flex items-center sm:hidden">
+            <div class="-me-2 flex items-center lg:hidden">
                 <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-stone-500 hover:text-stone-700 hover:bg-stone-100 focus:outline-none transition duration-150 ease-in-out">
                     <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                         <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
@@ -99,7 +108,7 @@
     </div>
 
     <!-- Responsive Navigation Menu -->
-    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden bg-stone-50 border-b border-stone-200">
+    <div :class="{'block': open, 'hidden': ! open}" class="hidden lg:hidden bg-cream border-b border-stone-200">
         <div class="pt-2 pb-3 space-y-1">
             @if (Auth::user()->isAdmin())
                 <x-responsive-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
@@ -114,9 +123,18 @@
                 <x-responsive-nav-link :href="route('admin.menus.index')" :active="request()->routeIs('admin.menus.*')">
                     {{ __('Menu Makanan & Minuman') }}
                 </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('admin.tables.index')" :active="request()->routeIs('admin.tables.*')">
+                    {{ __('Kelola Meja') }}
+                </x-responsive-nav-link>
             @elseif (Auth::user()->role === 'kasir')
-                <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                    {{ __('Dashboard Kasir') }}
+                <x-responsive-nav-link :href="route('kasir.orders.index')" :active="request()->routeIs('kasir.orders.index')">
+                    {{ __('Pesanan Masuk') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('kasir.orders.board')" :active="request()->routeIs('kasir.orders.board')">
+                    {{ __('Status Pesanan') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('kasir.menus.index')" :active="request()->routeIs('kasir.menus.*')">
+                    {{ __('Ketersediaan Menu') }}
                 </x-responsive-nav-link>
             @else
                 <x-responsive-nav-link :href="route('orders.index')" :active="request()->routeIs('orders.*')">

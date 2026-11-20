@@ -12,7 +12,7 @@ class CatalogController extends Controller
     public function index(Request $request)
     {
         // Ambil data kategori untuk filter
-        $categories = Category::all();
+        $categories = Category::withCount('menus')->orderBy('name')->get();
 
         // Query data menu berdasarkan pencarian atau kategori
         $query = Menu::query();
@@ -25,7 +25,7 @@ class CatalogController extends Controller
             $query->where('category_id', $request->category_id);
         }
 
-        $menus = $query->get();
+        $menus = $query->with('category')->orderByDesc('is_available')->orderBy('name')->get();
 
         return view('customer.catalog', compact('menus', 'categories'));
     }

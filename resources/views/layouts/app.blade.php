@@ -14,13 +14,13 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans antialiased text-stone-900 bg-stone-50">
-        <div class="min-h-screen bg-stone-50">
+    <body class="font-sans antialiased text-stone-900 bg-cream">
+        <div class="min-h-screen bg-cream">
             @include('layouts.navigation')
 
             <!-- Page Heading -->
             @isset($header)
-                <header class="bg-white border-b border-stone-200/80 shadow-sm">
+                <header class="bg-cream">
                     <div class="max-w-7xl mx-auto py-5 px-4 sm:px-6 lg:px-8">
                         {{ $header }}
                     </div>

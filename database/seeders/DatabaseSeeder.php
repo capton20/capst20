@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Category;
+use App\Models\DiningTable;
 use App\Models\Menu;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -113,6 +114,20 @@ class DatabaseSeeder extends Seeder
                 ['name' => $menu['name']],
                 $menu
             );
+        }
+
+        // Meja
+        $tables = [
+            ['number' => '01', 'area' => 'Indoor AC', 'capacity' => 2],
+            ['number' => '02', 'area' => 'Indoor AC', 'capacity' => 4],
+            ['number' => '03', 'area' => 'Indoor AC', 'capacity' => 4],
+            ['number' => '07', 'area' => 'Indoor AC', 'capacity' => 2],
+            ['number' => '08', 'area' => 'Outdoor Terrace', 'capacity' => 6],
+            ['number' => 'B3', 'area' => 'Bar High-Chair', 'capacity' => 1],
+        ];
+
+        foreach ($tables as $table) {
+            DiningTable::firstOrCreate(['number' => $table['number']], $table);
         }
     }
 }

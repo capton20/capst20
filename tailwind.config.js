@@ -15,6 +15,8 @@ export default {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
             colors: {
+                cream: '#faf7f2',
+                espresso: '#2b1a14',
                 coffee: {
                     50: '#fbf8f5',
                     100: '#f6ede4',
