@@ -62,6 +62,7 @@
                                 </div>
                             @endif
                             <span class="absolute top-2 left-2 px-2.5 py-0.5 rounded-full bg-white/90 text-xs font-medium text-coffee-800">{{ $menu->category->name ?? 'Menu' }}</span>
+                            <x-like-count :count="$menu->likes_count" class="absolute top-2 right-2" />
                             @unless ($menu->is_available)
                                 <span class="absolute inset-0 flex items-center justify-center bg-stone-900/40 text-white font-bold tracking-wider">STOK HABIS</span>
                             @endunless

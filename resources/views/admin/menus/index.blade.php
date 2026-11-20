@@ -72,6 +72,7 @@
                                 <th scope="col" class="px-6 py-4">Kategori</th>
                                 <th scope="col" class="px-6 py-4">Harga</th>
                                 <th scope="col" class="px-6 py-4">Deskripsi</th>
+                                <th scope="col" class="px-6 py-4 text-center">Like</th>
                                 <th scope="col" class="px-6 py-4 text-end">Aksi</th>
                             </tr>
                         </thead>
@@ -105,6 +106,17 @@
                                     <td class="px-6 py-4 max-w-xs text-xs text-stone-500">
                                         {{ $menu->description ?: 'Tidak ada deskripsi' }}
                                     </td>
+                                    <td class="px-6 py-4 text-center">
+                                        <form method="POST" action="{{ route('admin.menus.like', $menu) }}">
+                                            @csrf
+                                            <button type="submit" aria-pressed="{{ $menu->liked_by_me ? 'true' : 'false' }}"
+                                                    aria-label="{{ $menu->liked_by_me ? 'Batalkan like' : 'Beri like' }} {{ $menu->name }}"
+                                                    class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs font-semibold transition {{ $menu->liked_by_me ? 'bg-rose-50 border-rose-200 text-rose-700 hover:bg-rose-100' : 'bg-white border-stone-200 text-stone-600 hover:border-rose-200 hover:text-rose-700' }}">
+                                                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="{{ $menu->liked_by_me ? 'currentColor' : 'none' }}" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
+                                                {{ $menu->likes_count }}
+                                            </button>
+                                        </form>
+                                    </td>
                                     <td class="px-6 py-4 text-end">
                                         <div class="inline-flex items-center space-x-2">
                                             <!-- Edit -->
@@ -129,7 +141,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="6" class="px-6 py-12 text-center text-stone-500">
+                                    <td colspan="7" class="px-6 py-12 text-center text-stone-500">
                                         <div class="flex flex-col items-center justify-center">
                                             <svg class="w-12 h-12 text-stone-300 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />

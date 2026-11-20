@@ -25,7 +25,7 @@ class CatalogController extends Controller
             $query->where('category_id', $request->category_id);
         }
 
-        $menus = $query->with('category')->orderByDesc('is_available')->orderBy('name')->get();
+        $menus = $query->with('category')->withCount('likedBy as likes_count')->orderByDesc('is_available')->orderBy('name')->get();
 
         return view('customer.catalog', compact('menus', 'categories'));
     }

@@ -151,6 +151,7 @@
                                         </div>
                                     @endif
                                     <span class="absolute top-3 left-3 px-2.5 py-0.5 rounded-full bg-white/90 text-xs font-medium text-coffee-800">{{ $menu->category->name ?? 'Menu' }}</span>
+                                    <x-like-count :count="$menu->likes_count" class="absolute top-3 right-3" />
                                 </div>
                                 <div class="p-2 pt-4">
                                     <div class="flex items-start justify-between gap-3">
