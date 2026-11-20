@@ -4,23 +4,22 @@ namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Order;
-use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
-    // Menampilkan daftar pesanan khusus customer yang sedang login
-    public function index()
+    // Menampilkan daftar pesanan milik customer yang sedang login
+    public function index(Request $request)
     {
-        // Mengambil pesanan berdasarkan user yang sedang login, atau tampilkan semua jika belum pakai relasi ketat
-        $orders = Order::latest()->get(); 
+        $orders = $request->user()->orders()->with(['diningTable', 'items'])->latest()->get();
+
         return view('customer.order-tracking', compact('orders'));
     }
 
-    // Menampilkan detail pesanan
-    public function show($id)
+    // Menampilkan detail pesanan (hanya pesanan milik sendiri)
+    public function show(Request $request, $id)
     {
-        $order = Order::findOrFail($id);
+        $order = $request->user()->orders()->with(['diningTable', 'items'])->findOrFail($id);
+
         return view('customer.order-detail', compact('order'));
     }
 }

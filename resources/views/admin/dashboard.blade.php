@@ -10,7 +10,7 @@
                 </p>
             </div>
             <div class="flex items-center space-x-3">
-                <a href="{{ route('admin.menus.create') }}" class="inline-flex items-center px-4 py-2 bg-coffee-800 border border-transparent rounded-lg font-medium text-xs text-white uppercase tracking-wider hover:bg-coffee-900 focus:bg-coffee-900 active:bg-coffee-950 focus:outline-none focus:ring-2 focus:ring-coffee-600 focus:ring-offset-2 transition ease-in-out duration-150 shadow-sm">
+                <a href="{{ route('admin.menus.create') }}" class="inline-flex items-center px-4 py-2 bg-espresso border border-transparent rounded-lg font-medium text-xs text-white uppercase tracking-wider hover:bg-black focus:bg-black active:bg-black focus:outline-none focus:ring-2 focus:ring-coffee-600 focus:ring-offset-2 transition ease-in-out duration-150 shadow-sm">
                     <svg class="w-4 h-4 me-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                     </svg>
@@ -119,7 +119,7 @@
 
                 <a href="{{ route('admin.menus.index') }}" class="group bg-white p-6 rounded-xl border border-stone-200/80 shadow-sm hover:border-amber-700/50 hover:shadow-md transition">
                     <div class="flex items-start space-x-4">
-                        <div class="w-10 h-10 rounded-lg bg-amber-100 text-coffee-800 flex items-center justify-center group-hover:bg-coffee-800 group-hover:text-white transition">
+                        <div class="w-10 h-10 rounded-lg bg-amber-100 text-coffee-800 flex items-center justify-center group-hover:bg-espresso group-hover:text-white transition">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                             </svg>

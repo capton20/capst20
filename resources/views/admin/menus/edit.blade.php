@@ -122,7 +122,7 @@
                         <a href="{{ route('admin.menus.index') }}" class="px-5 py-2.5 bg-stone-100 hover:bg-stone-200 text-stone-700 text-sm font-medium rounded-lg transition">
                             Batal
                         </a>
-                        <button type="submit" class="px-5 py-2.5 bg-coffee-800 hover:bg-coffee-900 text-white text-sm font-medium rounded-lg transition shadow-sm focus:ring-2 focus:ring-coffee-600">
+                        <button type="submit" class="px-5 py-2.5 bg-espresso hover:bg-black text-white text-sm font-medium rounded-lg transition shadow-sm focus:ring-2 focus:ring-coffee-600">
                             Perbarui Menu
                         </button>
                     </div>

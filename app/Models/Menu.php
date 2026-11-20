@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\Storage;
 
-#[Fillable(['category_id', 'name', 'description', 'price', 'image'])]
+#[Fillable(['category_id', 'name', 'description', 'price', 'image', 'is_available'])]
 class Menu extends Model
 {
     /** @use HasFactory<\Database\Factories\MenuFactory> */
@@ -23,6 +23,7 @@ class Menu extends Model
     {
         return [
             'price' => 'decimal:2',
+            'is_available' => 'boolean',
         ];
     }
 
